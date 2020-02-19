@@ -47,7 +47,7 @@ class PowerImageBuilder
 
         // check path has a image extension
         $ext = pathinfo($request->path(), PATHINFO_EXTENSION);
-        if (!in_array($ext, $this->imageExtensions)) {
+        if (!in_array(strtolower($ext), $this->imageExtensions)) {
             Log::debug('powerimage: image extension not found: '.$ext);
 
             return false;
