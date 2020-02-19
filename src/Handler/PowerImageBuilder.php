@@ -63,6 +63,9 @@ class PowerImageBuilder
 
         // check original image file exits
         $originalFilepath = $this->getOriginalFilepath($request->path(), $parameterString);
+
+        $originalFilepath = urldecode($originalFilepath);
+
         if (!Storage::exists($originalFilepath)) {
             Log::debug('powerimage: original image file not exits, path: '.$originalFilepath);
             Log::debug('powerimage: storage package check follow absolut file: '.Storage::path($originalFilepath));
@@ -79,8 +82,8 @@ class PowerImageBuilder
         $resizedFileBinary = $glideApi->run(Storage::path($originalFilepath), $params);
 
         // Save
-        Storage::put($request->path(), $resizedFileBinary);
-        if (!Storage::exists($request->path())) {
+        Storage::put(urldecode($request->path()), $resizedFileBinary);
+        if (!Storage::exists(urldecode($request->path()))) {
             Log::debug('powerimage: image was not saved, binarycode length: '.strlen($resizedFileBinary));
 
             return false;
@@ -88,9 +91,9 @@ class PowerImageBuilder
 
         // Output the image
         event(
-            new ResizedImageWasCreated($request, $originalFilepath, $request->path())
+            new ResizedImageWasCreated($request, $originalFilepath, urldecode($request->path()))
         );
-        header('Location:'.$request->url(), true, 302);
+        header('Location:'.urldecode($request->url()), true, 302);
         exit;
     }
 
