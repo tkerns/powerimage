@@ -2,6 +2,8 @@
 
 namespace Alcodo\PowerImage\Handler;
 
+use function str_replace;
+
 class ParamsHelper
 {
     /**
@@ -61,12 +63,16 @@ class ParamsHelper
      */
     public static function getParameterString($path, $fileextension)
     {
-        preg_match('/_(.*?).'.$fileextension.'/', $path, $match);
+        //get all occurances of delimiter
+        $arr = explode('_', $path);
+        //grab last occurance
+        $string = end($arr);
+        //remove extension
+        $string =  str_replace('.' . $fileextension, '', $string);
 
-        if (!isset($match[1]) || empty($match[1])) {
+        if (!isset($string) || empty($string)) {
             return false;
         }
-
-        return $match[1];
+        return $string;
     }
 }
