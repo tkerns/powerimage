@@ -1,5 +1,5 @@
-# Powerimage (fork)
-
+# Powerimage
+####Fork of alcodo/powerimage, modified to allow spaces and multiple underscores in filename, as well as uppercase extensions
 
 <p align="center">
 <a href="https://travis-ci.org/alcodo/powerimage"><img src="https://travis-ci.org/alcodo/powerimage.svg" alt="Build Status"></a>

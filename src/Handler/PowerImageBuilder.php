@@ -79,11 +79,11 @@ class PowerImageBuilder
         // Convert
         /** @var Api $glideApi */
         $glideApi = app('GlideApi');
-        $resizedFileBinary = $glideApi->run(Storage::path($originalFilepath), $params);
+        $resizedFileBinary = $glideApi->run(Storage::url($originalFilepath), $params);
 
         // Save
-        Storage::put(urldecode($request->path()), $resizedFileBinary);
-        if (!Storage::exists(urldecode($request->path()))) {
+        Storage::disk('local')->put(urldecode($request->path()), $resizedFileBinary);
+        if (!Storage::disk('local')->exists(urldecode($request->path()))) {
             Log::debug('powerimage: image was not saved, binarycode length: '.strlen($resizedFileBinary));
 
             return false;
