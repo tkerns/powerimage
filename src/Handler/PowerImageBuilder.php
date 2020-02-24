@@ -79,7 +79,7 @@ class PowerImageBuilder
         // Convert
         /** @var Api $glideApi */
         $glideApi = app('GlideApi');
-        $resizedFileBinary = $glideApi->run(Storage::url($originalFilepath), $params);
+        $resizedFileBinary = $glideApi->run(str_replace(' ', '%20', Storage::url($originalFilepath)), $params);
 
         // Save
         Storage::disk('local')->put(urldecode($request->path()), $resizedFileBinary);
