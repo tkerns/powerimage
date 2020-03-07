@@ -26,10 +26,19 @@ Delimiter: _
 ```
 
 ## Installation
+,
 
 Add packages:
 ```bash
     composer require alcodo/powerimage:dev-master
+```
+You must also require the following 2 packages, due to this being a forked repo.
+```bash
+    composer require league/glide
+```
+and
+```bash
+    composer require spatie/image-optimizer
 ```
 
 Add powerimage handler in `app/Exceptions/Handler.php`:
